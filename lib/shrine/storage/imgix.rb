@@ -66,9 +66,11 @@ class Shrine
       #
       # [reference]: https://www.imgix.com/docs/reference
       def url(id, **options)
-        id = [*@storage.prefix, id].join("/") if @include_prefix
-
-        client.path(id).to_url(**options)
+        client.path(path(id)).to_url(**options)
+      end
+      
+      def path(id)
+        [*@storage.prefix, id].join("/") if @include_prefix
       end
 
       # Purges the deleted file.
